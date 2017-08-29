@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  percona:
+    image: percona:5.7.18
+    command:
+      - "mysqld"
+      - "--max-connections=1000"
+      - "--innodb_buffer_pool_size=2G"
+      - "--innodb_log_file_size=1G"
+      - "--innodb_flush_method=O_DIRECT"
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_USER=internal
+      - MYSQL_PASSWORD=dev
+      - MYSQL_DATABASE=test
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels: [DB=MYSQL]
+
+# Usage
+# docker stack deploy --compose-file=docker/compose.yml gorestarter;
+# To get your DB dev
+# CONTAINER_NAME=$(docker ps --format '{{.Names}}' | grep percona) && docker exec -i $CONTAINER_NAME mysql -u root -e "CREATE DATABASE dev;GRANT ALL PRIVILEGES ON dev.* TO 'internal'@'%';";

@@ -1,0 +1,84 @@
+{
+  "variables": [],
+  "info": {
+    "name": "gorestarter",
+    "_postman_id": "f1bdbd5b-8b3b-32b8-36ec-cb163e4e5a8a",
+    "description": "",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "resourceone - GetList",
+      "request": {
+        "url": "http://127.0.0.1:9002/v1/resourceone",
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "resourceone - Get resourceone 1",
+      "request": {
+        "url": "http://127.0.0.1:9002/v1/resourceone/1",
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "resourceone - Create",
+      "request": {
+        "url": "http://127.0.0.1:9002/v1/resourceone",
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": ""
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"label\": \"test\"}"
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "resourceone - Delete resourceone 1",
+      "request": {
+        "url": "http://127.0.0.1:9002/v1/resourceone/2",
+        "method": "DELETE",
+        "header": [],
+        "body": {},
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "resourceone - Update resourceone 1",
+      "request": {
+        "url": "http://127.0.0.1:9002/v1/resourceone/1",
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": ""
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"resourceoneId\": 1,\n    \"label\": \"testupdate\"\n}"
+        },
+        "description": ""
+      },
+      "response": []
+    }
+  ]
+}

@@ -28,7 +28,7 @@ First install docker https://docs.docker.com/engine/installation/
 Then (you might have to enable the experimental flag):
 
 ```
-docker stack deploy --compose-file=docker/compose.yml golang-pcf;
+docker stack deploy --compose-file=docker/compose.yml gorestarter;
 CONTAINER_NAME=$(docker ps --format '{{.Names}}' | grep percona) && docker exec -i $CONTAINER_NAME mysql -u root -e "CREATE DATABASE dev;GRANT ALL PRIVILEGES ON dev.* TO 'internal'@'%';";
 ```
 
