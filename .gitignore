@@ -13,3 +13,7 @@
 
 # MacOS
 .DS_Store
+
+# vendoring
+vendor
+!vendor/vendor.json
