@@ -19,7 +19,7 @@ git clone https://github.com/vincentserpoul/gorestarter YOURPROJECTNAME
 cd YOURPROJECTNAME
 rm -rf .git
 find ./ -type f -exec sed -i -e 's/gorestarter/YOURPROJECTNAME/g' {} \;
-find ./ -type f -exec sed -i -e 's/loft\/gorestarter/YOURPROJECTGROUP\/YOURPROJECTNAME/g' {} \;
+find ./ -type f -exec sed -i -e 's/github.com\/vincentserpoul\/gorestarter/YOURPROJECTGROUP\/YOURPROJECTNAME/g' {} \;
 git init
 ```
 
