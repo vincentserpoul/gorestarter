@@ -1,12 +1,16 @@
-
-
 # Golang starter for REST APIs
+
 
 Go is simple, fast, lean, typed, compiled, opinionated... It was invented at Google to ease the work for large development groups, and I think it does the job well.
 
 This starter is as simple, lean as possible and is an example of a simple REST API, with vendoring, swaggering, concoursing, testing, benchmarking, linting and deploying.
 It is based on the latest go version, 1.9.0.
 It follows the best practices in the go community.
+
+## Pre Requisites
+
+* golang 1.9
+* docker
 
 ## How to use
 
@@ -21,6 +25,7 @@ rm -rf .git
 find ./ -type f -exec sed -i -e 's/github.com\/vincentserpoul\/gorestarter/YOURPROJECTGROUP\/YOURPROJECTNAME/g' {} \;
 find ./ -type f -exec sed -i -e 's/gorestarter/YOURPROJECTNAME/g' {} \;
 git init
+dep ensure
 ```
 
 If you have a dependency on MySQL, and want to dev locally:

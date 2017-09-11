@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"strconv"
@@ -44,17 +45,21 @@ func TestPOSTHandler(t *testing.T) {
 				t.Fatalf("request creation failed %v", errR)
 			}
 			POSTHandler(pool)(rr, request)
-			resp := rr.Result()
-			defer resp.Body.Close()
+			res := rr.Result()
+			defer func() {
+				if errCl := res.Body.Close(); errCl != nil {
+					log.Fatalf("test error %v", errCl)
+				}
+			}()
 
-			if status := resp.StatusCode; status != tt.wantedStatus {
+			if status := res.StatusCode; status != tt.wantedStatus {
 				t.Errorf("handler returned wrong status code: got %v want %v",
 					status, tt.wantedStatus)
 			}
 
-			if resp.StatusCode == http.StatusOK {
+			if res.StatusCode == http.StatusOK {
 				e := &Resourceone{}
-				_ = json.NewDecoder(resp.Body).Decode(e)
+				_ = json.NewDecoder(res.Body).Decode(e)
 				if e.Label != tt.wantedLabel || e.ID == 0 {
 					t.Errorf("POSTHandler rendered %d as ID and %s as Label instead of %s",
 						e.ID, e.Label, tt.wantedLabel)
@@ -78,7 +83,11 @@ func BenchmarkPOSTHandler(b *testing.B) {
 		rr := httptest.NewRecorder()
 		POSTHandler(pool)(rr, jsonRequestOK)
 		res := rr.Result()
-		defer res.Body.Close()
+		defer func() {
+			if errCl := res.Body.Close(); errCl != nil {
+				log.Fatalf("test error %v", errCl)
+			}
+		}()
 
 		e := &Resourceone{}
 		_ = json.NewDecoder(rr.Result().Body).Decode(e)
@@ -110,7 +119,11 @@ func TestGETListHandler(t *testing.T) {
 
 			GETListHandler(pool)(rr, request)
 			res := rr.Result()
-			defer res.Body.Close()
+			defer func() {
+				if errCl := res.Body.Close(); errCl != nil {
+					log.Fatalf("test error %v", errCl)
+				}
+			}()
 
 			if status := rr.Code; status != tt.wantedStatus {
 				t.Errorf("GETListHandler returned wrong status code: got %v want %v",
@@ -134,7 +147,11 @@ func BenchmarkGETListHandler(b *testing.B) {
 		rr := httptest.NewRecorder()
 		GETListHandler(pool)(rr, jsonRequestOK)
 		res := rr.Result()
-		defer res.Body.Close()
+		defer func() {
+			if errCl := res.Body.Close(); errCl != nil {
+				log.Fatalf("test error %v", errCl)
+			}
+		}()
 	}
 }
 
@@ -177,7 +194,11 @@ func TestGETHandler(t *testing.T) {
 			ctx := getTestContextWithResourceID(tt.resourceID)
 			GETHandler(pool)(rr, request.WithContext(ctx))
 			res := rr.Result()
-			defer res.Body.Close()
+			defer func() {
+				if errCl := res.Body.Close(); errCl != nil {
+					log.Fatalf("test error %v", errCl)
+				}
+			}()
 
 			if status := rr.Code; status != tt.wantedStatus {
 				t.Errorf("GETHandler returned wrong status code: got %v want %v",
@@ -208,7 +229,11 @@ func BenchmarkGETHandler(b *testing.B) {
 		ctx := getTestContextWithResourceID(strconv.FormatInt(testResourceoneIDsHandler[b.N%len(testResourceoneIDsHandler)], 10))
 		GETHandler(pool)(rr, request.WithContext(ctx))
 		res := rr.Result()
-		defer res.Body.Close()
+		defer func() {
+			if errCl := res.Body.Close(); errCl != nil {
+				log.Fatalf("test error %v", errCl)
+			}
+		}()
 	}
 }
 
@@ -254,7 +279,11 @@ func TestPUTHandler(t *testing.T) {
 			ctx := getTestContextWithResourceID(tt.resourceID)
 			PUTHandler(pool)(rr, request.WithContext(ctx))
 			res := rr.Result()
-			defer res.Body.Close()
+			defer func() {
+				if errCl := res.Body.Close(); errCl != nil {
+					log.Fatalf("test error %v", errCl)
+				}
+			}()
 
 			if status := rr.Code; status != tt.wantedStatus {
 				t.Errorf("PUTHandler returned wrong status code: got %v want %v",
@@ -285,7 +314,11 @@ func BenchmarkPUTHandler(b *testing.B) {
 		ctx := getTestContextWithResourceID(strconv.FormatInt(testResourceoneIDsHandler[b.N%len(testResourceoneIDsHandler)], 10))
 		PUTHandler(pool)(rr, request.WithContext(ctx))
 		res := rr.Result()
-		defer res.Body.Close()
+		defer func() {
+			if errCl := res.Body.Close(); errCl != nil {
+				log.Fatalf("test error %v", errCl)
+			}
+		}()
 	}
 }
 
@@ -322,7 +355,11 @@ func TestDELETEHandler(t *testing.T) {
 
 			DELETEHandler(pool)(rr, request.WithContext(ctx))
 			res := rr.Result()
-			defer res.Body.Close()
+			defer func() {
+				if errCl := res.Body.Close(); errCl != nil {
+					log.Fatalf("test error %v", errCl)
+				}
+			}()
 
 			if status := rr.Code; status != tt.wantedStatus {
 				t.Errorf("DELETEHandler returned wrong status code: got %v want %v",
@@ -340,7 +377,11 @@ func BenchmarkDELETEHandler(b *testing.B) {
 
 		DELETEHandler(pool)(rr, request.WithContext(ctx))
 		res := rr.Result()
-		defer res.Body.Close()
+		defer func() {
+			if errCl := res.Body.Close(); errCl != nil {
+				log.Fatalf("test error %v", errCl)
+			}
+		}()
 	}
 }
 
