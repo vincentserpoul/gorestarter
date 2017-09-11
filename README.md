@@ -18,8 +18,8 @@ You're ready to go!
 git clone https://github.com/vincentserpoul/gorestarter YOURPROJECTNAME
 cd YOURPROJECTNAME
 rm -rf .git
-find ./ -type f -exec sed -i -e 's/gorestarter/YOURPROJECTNAME/g' {} \;
 find ./ -type f -exec sed -i -e 's/github.com\/vincentserpoul\/gorestarter/YOURPROJECTGROUP\/YOURPROJECTNAME/g' {} \;
+find ./ -type f -exec sed -i -e 's/gorestarter/YOURPROJECTNAME/g' {} \;
 git init
 ```
 
@@ -30,6 +30,7 @@ Then (you might have to enable the experimental flag):
 ```
 docker stack deploy --compose-file=docker/compose.yml gorestarter;
 CONTAINER_NAME=$(docker ps --format '{{.Names}}' | grep percona) && docker exec -i $CONTAINER_NAME mysql -u root -e "CREATE DATABASE dev;GRANT ALL PRIVILEGES ON dev.* TO 'internal'@'%';";
+CONTAINER_NAME=$(docker ps --format '{{.Names}}' | grep percona) && docker exec -i $CONTAINER_NAME mysql -u root -e "CREATE DATABASE test;GRANT ALL PRIVILEGES ON test.* TO 'internal'@'%';";
 ```
 
 MySQL is now available locally!
