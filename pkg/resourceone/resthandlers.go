@@ -88,6 +88,7 @@ func GETListHandler(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		w.WriteHeader(http.StatusOK)
 		renderer.ResponseJSONRender(w, r, es)
 	}
 }
@@ -120,6 +121,7 @@ func GETHandler(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		w.WriteHeader(http.StatusOK)
 		renderer.ResponseJSONRender(w, r, e)
 	}
 }
@@ -162,6 +164,7 @@ func PUTHandler(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		w.WriteHeader(http.StatusOK)
 		renderer.ResponseJSONRender(w, r, e)
 	}
 }
@@ -198,6 +201,7 @@ func DELETEHandler(db *sqlx.DB) func(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		w.WriteHeader(http.StatusOK)
 		w.WriteHeader(http.StatusNoContent)
 	}
 }
