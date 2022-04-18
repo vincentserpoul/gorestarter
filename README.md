@@ -1,5 +1,7 @@
 # Golang starter for REST APIs
 
+DEPRECATED
+
 
 Go is simple, fast, lean, typed, compiled, opinionated... It was invented at Google to ease the work for large development groups, and I think it does the job well.
 
